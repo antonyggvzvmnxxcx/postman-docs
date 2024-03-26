@@ -1,17 +1,11 @@
 ---
-title: 'Deploying to an Amazon API Gateway'
+title: "Manage API deployments to Amazon API Gateway in Postman"
 updated: 2022-09-15
-search_keyword: "deploy, aws, api gateway"
 contextual_links:
   - type: section
-    name: "Prerequisites"
-  - type: link
-    name: "API development overview"
-    url: "/docs/designing-and-developing-your-api/the-api-workflow/"
-  - type: section
-    name: "Additional Resources"
+    name: "Additional resources"
   - type: subtitle
-    name: "Blog Posts"
+    name: "Blog posts"
   - type: link
     name: "Stay on Top of Your API Deployments: AWS API Gateway Integration"
     url: "https://blog.postman.com/deployments-aws-api-gateway-integration/"
@@ -35,7 +29,10 @@ This integration supports OpenAPI 3.0 definitions for HTTP and REST APIs. You ca
 
 To connect to Amazon API Gateway in Postman, select **APIs** in the sidebar and select an API. Select **Deployments**, and then select **AWS API Gateway**.
 
-When setting up the connection to API Gateway, you can choose to authenticate by [creating an AWS IAM role](#authenticating-with-an-aws-iam-role) or by [using an AWS access key](#authenticating-with-an-aws-access-key). Follow the steps for your chosen method below. After setting up the connection, you can choose to import a definition from the API Gateway.
+When setting up the connection to API Gateway, you can choose to authenticate by creating an AWS IAM role or by using an AWS access key. Follow the steps for your chosen method:
+
+* [Authenticating with an AWS IAM role](#authenticating-with-an-aws-iam-role)
+* [Authenticating with an AWS access key](#authenticating-with-an-aws-access-key)
 
 > When you delete an API or remove it from a workspace, any configured integrations aren't deleted or removed. On the Postman **Home** page, select **Integrations** and search for "AWS API Gateway" to view the list of [AWS API gateway integrations](https://go.postman.co/integrations/service/api_gateway_aws/api_gateway_aws). To delete an integration, select it and then select **Delete Integration**.
 
@@ -47,12 +44,12 @@ To set up a connection to Amazon API Gateway using an AWS IAM role, select **IAM
 
 Enter a **Nickname** for this integration and select the **AWS API Type** (HTTP or REST).
 
-Next, create an IAM role for Postman in AWS:
+To create an IAM role for Postman in AWS, do the following:
 
 1. Open the [AWS IAM console](https://console.aws.amazon.com/iam/home#/roles) and select **Create role**.
 2. Under **Select type of trusted entity**, select **Another AWS account**.
 3. Enter Postman's **AWS Account ID**: `258201882842`
-4. Under options, select the check box to **Require external ID** and enter the **External ID** from Postman. You can find the external ID under **Step 1: Create an IAM role**.
+4. Under options, select the **Require external ID** checkbox and enter the **External ID** from Postman. You can find the external ID under **Step 1: Create an IAM role**.
 
     > For more information, refer to the [AWS IAM guide on using external IDs](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html).
 
@@ -188,6 +185,8 @@ You can import an HTTP or REST definition from a connected Amazon API Gateway to
 Exporting an HTTP API definition makes it available in the connected Amazon API Gateway. After you export a definition from Postman, use the AWS console to configure and deploy the definition to a stage in API Gateway. When exporting, you can also choose to deploy the definition directly from Postman to a stage in the connected API Gateway. Once the definition is deployed, users can start calling the API.
 
 > HTTP API definition can be exported and deployed from Postman. To deploy a REST API definition, use the AWS console.
+
+To export and deploy your API definition to an AWS stage, do the following:
 
 1. Select **APIs** in the sidebar and select an API.
 1. Select **Deployments**.

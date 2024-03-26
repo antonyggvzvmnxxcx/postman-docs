@@ -9,41 +9,22 @@ import { leftNavItems } from '../components/LeftNav/LeftNavItems';
 import LeftNav from '../components/LeftNav/LeftNav';
 import SEO from '../components/seo';
 const { v4: uuidv4 } = require('uuid');
-import { ButtonStyles } from '../../styles/ButtonStyles'
 import styled from 'styled-components';
 import 'prismjs/themes/prism-tomorrow.css';
 import { useModal } from '../components/modules/Modal';
 import PreviousAndNextLinks from '../components/modules/PreviousAndNextLinks';
 import BreadCrumbsLinks from '../components/modules/BreadCrumbsLinks';
-import LoadQualtrics from '../components/modules/loadQualtrics';
+import { BaseLinkStyles, BaseLink, UnorderedListStyles, OrderedListStyles, } from 'aether-marketing';
 
 const DocWrapper = styled.div`
   /* Used for Deeplinking */   
 h2, h3, h4 {
   scroll-margin-top: 2em;
 }
-a{
-  color: ${(props) => props.theme.colors.blue_60};
-  :hover {
-    border-bottom: 1px solid ${(props) => props.theme.colors.blue_60};
-    text-decoration: none;
-  }
-    &.anchor.before {
-      top: .2em;
-      padding-right: 8px;
-      
-      & svg {
-        width: auto;
-        height: .9em;
-        display: block;
-      }
-    }
 
-    &.anchor:hover {
-        border: none !important;
-        display: block;
-    }
-}
+.doc-page > a {
+    ${BaseLinkStyles.componentStyle.rules}
+  }
 .doc-page {
   padding-left: 40px !important;
   padding-top: 40px;
@@ -67,64 +48,12 @@ a{
     margin-bottom: 0;
   }
 
-  ul {
-    margin-left: 16px;
-    margin-bottom: 24px;
-
-    li::marker {
-      padding-inline-start: 39px;
-      color: ${(props) => props.theme.colors.orange_30};
-    }
-
-    &::after,
-      &::before {
-      display: inline-block;
-      direction: rtl !important;
-      margin-left: -28px !important;
-      padding-right: 16px !important;
-      width: 28px !important;
-      } 
-    
-    li {
-      margin-bottom: 8px;
-      line-height: 1.625;
-      padding: 0 0 0 16px;
-
-      li::before {
-        direction: rtl !important;
-        margin-left: -28px !important;
-        padding-right: 16px !important;
-        width: 28px !important;
-      }
-    }
-    li::before {
-      direction: rtl !important;
-      margin-left: -28px !important;
-      padding-right: 16px !important;
-      width: 28px !important;
-    }
-
-    list-style-type: '✦';
-
-    li::marker {
-      color: ${(props) => props.theme.colors.orange_30};
-  }
-
-  ol {
-    li {
-      padding-left: 10px;
-      margin-bottom: 8px;
-    }
-    li::marker {
-      color: $${(props) => props.theme.colors.grey_70};
-    }
-  } 
-
   @media (max-width: 765px) {
     padding-left: 30px !important;
     padding-right: 30px !important;
   }
 } 
+
 
 /* Blockquotes */
 blockquote {
@@ -141,10 +70,13 @@ blockquote code.language-text {
 }
 
 
+table {
+  font-size: 16px !important;
+  line-height: 1.5;
+}
 
-th:first-child,
-td:first-child {
- padding-left:10px;
+td {
+  padding: 10px;
 }
 
 thead:first-child:hover tr{
@@ -156,6 +88,7 @@ thead:first-child:hover tr{
 * add syntax highlighting
 */
 .language-text {
+
   background-color: ${(props) => props.theme.colors.grey_10};
   color: ${(props) => props.theme.colors.grey_90};
 }
@@ -163,16 +96,39 @@ thead:first-child:hover tr{
   background-color: ${(props) => props.theme.colors.grey_10};
   color: ${(props) => props.theme.colors.grey_90};
   padding: 1px 4px 2px !important;
-  font-size: 15px !important;
+  font-size: 1.5rem !important;
   box-shadow: inset 0 0 0 1px ${(props) => props.theme.colors.grey_30};
   border-radius: ${(props) => props.theme.borderRadius.medium};
 }
 
 code[class*="language-"] {
   word-break: break-word !important;
-  word-wrap: break-word !important;
   overflow-wrap: break-word !important;
   
+}
+
+pre {
+  font-family: 'IBM Plex Mono',SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace !important;
+  line-height: 24px;
+  margin-bottom: 0px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.code-ref-table {
+  border-top: solid #E4E4E4 1px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  tbody>tr{
+    vertical-align: top;
+   }
+  tbody>tr>:nth-child(1){
+    font-weight: bold;
+   }
+   tbody>tr>:nth-child(2){
+    font-family: 'IBM Plex Mono',SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace !important;
+   }
 }
 
 .gatsby-highlight {
@@ -230,7 +186,7 @@ code[class*="language-"] {
   display: flex;
   justify-content: space-between;
 }
-}
+
 .left-nav-re {
   padding: 32px 0px 8px 0px;
   background-color: ${(props) => props.theme.colors.grey_05};
@@ -238,6 +194,7 @@ code[class*="language-"] {
 
   & ul {
     margin-left: 0;
+    margin-bottom: 1.6rem !important;
     & ul {
       margin-left: 32px;
       margin-top: 8px;
@@ -256,8 +213,8 @@ code[class*="language-"] {
       cursor: pointer;
     }
   }
-
 }
+
 .events__alert {
     border: 4px dashed ${(props) => props.theme.colors.blue_10};
     border-radius: ${(props) => props.theme.borderRadius.medium};
@@ -265,6 +222,44 @@ code[class*="language-"] {
     /* color: #0C5460; */
     color: ${(props) => props.theme.colors.blue_80};
 }
+`
+const DocContent = styled.div`
+  ul {
+    ${UnorderedListStyles.componentStyle.rules}
+  }
+
+  ol {
+    ${OrderedListStyles.componentStyle.rules}
+    li > ol {
+      list-style: lower-alpha;
+    }
+  } 
+  //  anchor link tag styling
+  a.anchor.before {
+    top: 0.2em;
+    padding-right: 8px;
+
+    svg {
+      width: auto;
+      height: 0.9em;
+      display: block;
+    }
+  }
+
+  a.anchor:hover {
+    display: block;
+    border: none !important;
+  }
+ 
+  // Doc inline link styling
+  & a:hover,
+  a:active {
+      transition: all 0.2s ease-in-out;
+      text-decoration: none;
+      colot: ${(props) => props.theme.colors.blue_60};
+      border-bottom: 1px solid !important;
+  }
+  
 `
 
 const RightColumnWrapper = styled.aside`
@@ -284,13 +279,13 @@ const RightColumnWrapper = styled.aside`
   top: 160px;
 }
 
-.posmanaut-dab {
+.postmanaut-dab {
   max-width: 250px;
 }
 `
 
 const DocPage = ({ data }) => {
-  const [modalData] = useState(data.markdownRemark)
+  const [modalData] = useState(data.markdownRemark);
   const post = data.markdownRemark;
   // Last modified date - bottom
   // Last modified time - top 
@@ -326,7 +321,7 @@ const DocPage = ({ data }) => {
   })()
   return (
     <Layout>
-      <SEO title={post.frontmatter.title} slug={post.fields.slug} lastModifiedTime={lastModifiedTime} />
+      <SEO title={post.frontmatter.title} slug={post.fields.slug} lastModifiedTime={lastModifiedTime} earlyAccess={post.frontmatter.early_access} />
       <DocWrapper className="container-fluid">
         <div className="row row-eq-height">
           <nav className="col-sm-12 col-md-4 col-lg-3 left-nav-re">
@@ -334,10 +329,41 @@ const DocPage = ({ data }) => {
           </nav>
           <div className="col">
             <div className="row row-eq-height">
+            
               <main className="col-sm-12 col-md-12 col-lg-9 offset-lg-0 col-xl-7 doc-page ml-xl-5">
                 <BreadCrumbsLinks data={{ parentLink, subParentLink }} />
+                {post.frontmatter.plan === 'alpha' ? 
+                  <div className="alphaPlan">
+                    <p style={{'color': 'red'}}>This is an alpha feature</p>
+                  </div> :
+                  null
+                }
+                {post.frontmatter.plan === 'beta' ? 
+                  <div className="alphaPlan">
+                    <p style={{'color': 'red'}}>This is a beta feature</p>
+                  </div> :
+                  null
+                }
+                {post.frontmatter.plan === 'preview' ? 
+                  <div className="alphaPlan">
+                    <p style={{'color': 'red'}}>Preview plan</p>
+                  </div> :
+                  null
+                }
+                {post.frontmatter.plan === 'limited' ? 
+                  <div className="alphaPlan">
+                    <p style={{'color': 'red'}}>Preview plan</p>
+                  </div> :
+                  null
+                }
+                {post.frontmatter.plan === 'deprecated' ? 
+                  <div className="alphaPlan">
+                    <p style={{'color': 'red'}}>Preview plan</p>
+                  </div> :
+                  null
+                }
                 <h1>{post.frontmatter.title}</h1>
-                <div id="LoadDoc" />
+                <DocContent id="LoadDoc" />
                 {
                   excerptCount ?
                     <div className='events__alert mb-3'>
@@ -352,19 +378,17 @@ const DocPage = ({ data }) => {
                 <p>
                   <small className="font-italic">Last modified: {lastModifiedDate}</small>
                 </p>
-                {/* Qualtrics */}
-                <LoadQualtrics />
                 <PreviousAndNextLinks data={{ previous, next }} />
               </main>
               <RightColumnWrapper className="col-sm-12 col-md-12 col-lg-3 offset-lg-0 col-xl-3 offset-xl-1 right-column">
                 <hr className="d-block d-lg-none" />
-                <ButtonStyles >
-                  <EditDoc className="btn edit-button-styles primary-hollow " />
-                </ButtonStyles>
+                <EditDoc />
                 <DisplayContextualLinks data={data} />
-                <figure className="sticky posmanaut-dab">
-                  <img src="https://voyager.postman.com/illustration/postmanaut-posing-dancing-postman-illustration.svg" alt="Posmanaut dancing. Illustration." className="img-fluid" />
-                </figure>
+                <div className="sticky">
+                  <figure className="postmanaut-dab mt-1">
+                    <img src="https://voyager.postman.com/illustration/postmanaut-posing-dancing-postman-illustration.svg" alt="Posmanaut dancing. Illustration." className="img-fluid" />
+                  </figure>
+                </div>
               </RightColumnWrapper>
             </div>
           </div>
@@ -381,6 +405,8 @@ export const query = graphql`
       excerpt(pruneLength: 20000)
       frontmatter {
         title
+        early_access
+        plan
         contextual_links {
           type
           name

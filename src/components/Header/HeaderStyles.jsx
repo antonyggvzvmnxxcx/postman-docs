@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PrimaryNavbarV6 = styled.nav`
+export const PrimaryNavbarV6 = styled.div`
     background-color: ${(props) => props.theme.colors.grey_00};
     z-index: 2147483647;
     border-bottom: 1px solid ${(props) => props.theme.colors.grey_30};
@@ -12,16 +12,18 @@ export const PrimaryNavbarV6 = styled.nav`
     }
 
     .navbar {
-      padding: 6px 16px;
-  }
+      padding: 8px 16px;
+      font-family: Inter;
+    }
   `
-  export const SecondaryNavbarV6 = styled.nav`
+  export const SecondaryNavbarV6 = styled.div`
     background-color: ${(props) => props.theme.colors.grey_00};
     backdrop-filter: blur(64px);
     top: 100;
     z-index: 1020;
     border-bottom: 1px solid ${(props) => props.theme.colors.grey_30};
-  
+    
+
     .activeMenu {
       background-color: ${(props) => props.theme.colors.grey_00};
       z-index: 99;
@@ -29,10 +31,11 @@ export const PrimaryNavbarV6 = styled.nav`
       margin-top:-1px;
     }
     
-    &.sticky {
+    &.sticky { 
       position: sticky;
-      top: 0;
+      top: -0.1px;
       z-index: 1020;
+      margin: 0px;
     }
 
     @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
@@ -52,12 +55,12 @@ export const PrimaryNavbarV6 = styled.nav`
     }
   
   `
-export const NavStyles = styled.div`
+export const NavStyles = styled.nav`
 
    .navbar-nav .nav-link,
    a {
-     font-weight: 400;
-   } */
+     font-weight: 600;
+   } 
 
    /* Ul */
    & .navbar-nav {
@@ -100,7 +103,7 @@ export const NavStyles = styled.div`
    /* Navbar A tag elements */
    & .nav-link {
      letter-spacing: normal;
-     color: ${(props) => props.theme.colors.grey_50} !important;
+     color: ${(props) => props.theme.forms.text} !important;
      font-size: 14px;
      font-weight: 600;
      transition: color 0.2s ease-in-out;
@@ -113,10 +116,20 @@ export const NavStyles = styled.div`
        color: ${(props) => props.theme.colors.grey_50} !important;
      }
 
+
+
      &:focus {
        outline: none;
      }
 
+     @media screen and (min-width: 992px) and (max-width: 1013px) {
+      &:link {
+        &:last-child {
+          padding: 6px;
+        }
+       }
+      }
+    
      &:link,
      &:active {
        font-weight: 600;
@@ -274,13 +287,6 @@ export const NavStyles = styled.div`
      }
    }
  
-   /* Learning Center Link */
-   & .property-context-menu {
-     & .nav-link:link,
-     .nav-link:active {
-       font-weight: 400 !important;
-     }
-   }
    li.nav-item{
      padding: 0;
      margin-bottom: 4px !important;
@@ -327,7 +333,7 @@ export const NavStyles = styled.div`
        right: 0;
        left: 0;
        width: 100%;
-       top: 52px;
+       top: 45px;
        background-color: ${(props) => props.theme.colors.grey_00};
        padding: 0 16px 32px 16px;
        -webkit-transition: all 0.2s ease;
@@ -347,28 +353,269 @@ export const NavStyles = styled.div`
      -webkit-transform: rotate(0deg);
      -ms-transform: rotate(0deg);
      transform: rotate(0deg);
-     -webkit-transition: 0.3s ease-in;
-     -o-transition: 0.3s ease-in;
-     transition: 0.3s ease-in;
+     -webkit-transition: 0.1s ease-in-out;
+     -o-transition: 0.1s ease-in-out;
+     transition: 0.1s ease-in-out;
      &.open {
        -webkit-transform: rotate(180deg);
        -ms-transform: rotate(180deg);
        transform: rotate(180deg);
-       -webkit-transition: 0.3s ease-in;
-       -o-transition: 0.3s ease-in;
-       transition: 0.3s ease-in;
+       -webkit-transition: 0.1s ease-in-out;
+       -o-transition: 0.1s ease-in-out;
+       transition: 0.1s ease-in-out;
    }
  }
+ `
+
+ export const DropdownStylesSecond = styled.div`
 
 
+ li {
+  list-style: none;
+ }
+
+ li > a:hover {
+   text-decoration: none;
+ }
+
+ /* Navbar A tag elements */
+   & .nav-link {
+ 
+     transition: color 0.2s ease-in-out;
+     -webkit-transition: color 0.2s ease-in-out;
+     -o-transition: color 0.2s ease-in-out;
+     -ms-transition: color 0.2s ease-in-out;
+     padding: 6px 16px;
+     &:hover {
+       border-bottom: none;
+       color: ${(props) => props.theme.colors.grey_50} !important;
+     }
+
+     &:focus {
+       outline: none;
+     }
+
+     &:link,
+     &:active {
+       font-weight: 600;
+       padding: 6px 6px 6px 16px;
+     }
+     /* Hide Default Arrow */
+     &:after {
+       display: none;
+     }
+   }
+
+  .dropdown-menu, div.dropdown-menu.show {
+    min-width: 10rem;
+    max-width: 59rem;  
+    border-radius: 10px;
+    border: 1px solid #EDEDED !important;
+    box-shadow: 0 16px 24px -8px rgb(0 0 0 / 24%);
+  }
+  .dropdown-menu.lc-iconic {
+    padding: 16px;
+
+    & ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    & .lc-icon {
+      padding: 0;
+    }
+
+    & img {
+      padding-top: 2px;
+      @media screen and (min-width: 385px) {
+        padding-top: 8px;
+      }
+    }
+
+    & .arrow-icon {
+      -webkit-transform: rotate(270deg);
+      -ms-transform: rotate(270deg);
+      transform: rotate(270deg);
+      height: .8rem;
+    }
+  }
+
+  .nav-link.navbar-brand {
+    color: #212121 !important;
+  }
+  .navbar-brand > svg {
+    /* SVG Arrow Icon next to Nav Link */
+      display: inline-block;
+      margin-left: 20px;
+      width: 10px;
+      -webkit-transition: 0.1s ease-in-out;
+      -o-transition: 0.1s ease-in-out;
+      transition: 0.1s ease-in-out;
+      -ms-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+      /* Arrow Transitions Up on .show */
+      &.show {
+        display: inline-block;
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -webkit-transition: 0.1s ease-in-out;
+        -o-transition: 0.1s ease-in-out;
+        transition: 0.1s ease-in-out;
+      }
+
+      @media screen and (max-width: 992px) {
+        float: right;
+        margin-right: 17px;
+        position: relative;
+        top: 8px;
+      }
+
+      &:active,
+      &:focus {
+        outline: none;
+      } 
+  }
+
+  .dropdown-item-text-wrap {
+    white-space: normal;
+  }
+
+  .dropdown-item:active {
+    background-color: #F9F9F9;
+    color: #707070;
+  }
+
+  .dropdown-item > .no-hover:hover {
+    background-color: transparent !important;
+  }
+
+  .navbar-brand {
+    letter-spacing: -0.25px;
+    line-height: 1.4;
+    font-weight: 600;
+    padding-left: 0 !important;
+    font-size: 16px;
+    // position: static;
+
+     > svg {
+        display: inline-block;
+        margin-left: 6px;
+        width: 10px;
+        -webkit-transition: 0.1s ease-in-out;
+        -o-transition: 0.1s ease-in-out;
+        transition: 0.1s ease-in-out;
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        /* Arrow Transitions Up on .show */
+        &.show {
+          display: inline-block;
+          transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+          -webkit-transform: rotate(180deg);
+          -webkit-transition: 0.1s ease-in-out;
+          -o-transition: 0.1s ease-in-out;
+          transition: 0.1s ease-in-out;
+        }
+
+        @media screen and (max-width: 992px) {
+          float: right;
+          margin-right: 17px;
+          position: relative;
+          top: 8px;
+        }
+
+        &:active,
+        &:focus {
+          outline: none;
+        }
+      }
+  }
+
+  .dropdown-menu {
+    /* Mobile Dropdown */
+    background-color: ${(props) => props.theme.colors.grey_00};
+    border: none;
+    padding: 0 0 16px 24px;
+    line-height: 20px;
+    font-size: 1.4rem;
+
+    /* Web Dropdown */
+    @media screen and (min-width: 992px) {
+      background-color: ${(props) => props.theme.colors.grey_00};
+      border-radius: ${(props) => props.theme.borderRadius.medium};
+      padding: 16px;
+    }
+  }
+
+  .dropdown-header {
+    padding: 5px 15px;
+    color: #212121;
+    font-size: 16px !important;
+    -webkit-letter-spacing: -0.24px;
+    -moz-letter-spacing: -0.24px;
+    -ms-letter-spacing: -0.24px;
+    letter-spacing: -0.24px;
+    line-height: 1.4;
+    font-weight: 600;
+    margin-bottom: 0px;
+    white-space: normal;
+  }
+
+
+  .nav-drop {
+    letter-spacing: normal;
+     color: ${(props) => props.theme.grey_90} !important;
+     font-size: 14px;
+     font-weight: 600;
+     transition: color 0.2s ease-in-out;
+     -webkit-transition: color 0.2s ease-in-out;
+     -o-transition: color 0.2s ease-in-out;
+     -ms-transition: color 0.2s ease-in-out;
+     padding: 6px 16px;
+     &:hover {
+       border-bottom: none;
+       color: ${(props) => props.theme.colors.grey_50} !important;
+     }
+
+     &:focus {
+       outline: none;
+     }
+
+     &:link,
+     &:active {
+       font-weight: 600;
+       padding: 6px 6px 6px 16px;
+       /* Learning Center Nav Positioning */
+       &.uber-nav {
+         padding: 6px 16px;
+         @media screen and (max-width: 992px) {
+           padding: 6px 0px;
+         }
+       }
+      }
+  }
  `
 
 export const DropdownStyles = styled.div`
      /* Individual Dropdown Item */
-     z-index:2147483650;
+     line-height: 20px;
+     z-index: 2147483650;
      padding: 16px;
+     border-radius: ${(props) => props.theme.borderRadius.medium};
+     border: 1px solid ${(props) => props.theme.colors.grey_20};
+     box-shadow: 0 16px 24px -8px rgb(0 0 0 / 24%);
+
+     @media screen and (max-width: 991px) {
+      border-radius: none;
+      border: none;
+      box-shadow: none;
+    }
+
     .dropdown-item {
-      padding: 8px 16px;
+      padding: 8px 6px;
       font-weight: 400;
       font-size: 14px;
 
@@ -390,40 +637,50 @@ export const DropdownStyles = styled.div`
     border: none;
     padding: 0 0 16px 24px;
     line-height: 20px;
-    font-size: 14px;
+    font-size: 1.4rem;
+
     /* Web Dropdown */
     @media screen and (min-width: 992px) {
-      box-shadow: 0 16px 24px -8px rgba(0, 0, 0 , 0.24);
       background-color: ${(props) => props.theme.colors.grey_00};
-      border-radius: ${(props) => props.theme.borderRadius.small};
-      border: 1px solid ${(props) => props.theme.colors.grey_20};
+      border-radius: ${(props) => props.theme.borderRadius.medium};
+      padding: 16px
     }
+
+    
   }
    .dropdown-col-menu {
     width: 100%;
     @media screen and (min-width: 992px) {
-      width: 38rem;
+      width: 64rem;
     }
   }
    .dropdown-col {
+    padding: 0 12px;
     @media screen and (max-width: 991px) {
       margin-bottom: 2rem;
     }
   }
+  .dropdown-col:first-child {
+    max-width: 30%;
+  }
 
   .dropdown-header {
-    color: ${(props) => props.theme.colors.grey_50};
-    font-size: 16px;
+    padding: 5px;
+    color: ${(props) => props.theme.colors.grey_90};
+    font-size: 1.6rem;
     letter-spacing: -0.24px;
     line-height: 1.4;
     font-weight: 600;
     margin-bottom: 0px;
-    padding: 12px;
   }
 `
 
 
-export const CTAButton = styled.div`  
+export const CTAButton = styled.div` 
+margin-left: 10px; 
+@media (min-width: 1008px) {
+margin-left: 0px;
+}
     // Orange Button (Sign Up / Launch Postman)
 a.button__sign-up {
   align-items: center;
@@ -460,8 +717,7 @@ a.button__sign-up {
   }
 
   @media (max-width: 480px) {
-    display: block;
-    margin: 8px 16px;
+    margin: 12px 0 0;
   }
 };
 
@@ -494,13 +750,5 @@ a.button__sign-in {
   &:focus {
     outline: 0;
   }
-
-  @media (max-width: 992px) {
-    margin-left: 16px;
-  }
 }
 `
-
-
-
-

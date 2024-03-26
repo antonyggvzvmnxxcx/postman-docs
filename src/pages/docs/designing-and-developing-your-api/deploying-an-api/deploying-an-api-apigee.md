@@ -1,17 +1,11 @@
 ---
-title: 'Deploying to an Apigee API gateway'
+title: "Manage API deployments to Apigee in Postman"
 updated: 2022-09-15
-search_keyword: "deploy, apigee, api gateway"
 contextual_links:
   - type: section
-    name: "Prerequisites"
-  - type: link
-    name: "API development overview"
-    url: "/docs/designing-and-developing-your-api/the-api-workflow/"
-  - type: section
-    name: "Additional Resources"
+    name: "Additional resources"
   - type: subtitle
-    name: "Related Blog Posts"
+    name: "Blog Posts"
   - type: link
     name: "Introducing Powerful Integrations"
     url: "https://blog.postman.com/the-new-postman-api-platform/"
@@ -31,12 +25,12 @@ contextual_links:
 
 When setting up the connection to Apigee, you need to enter a service account email and a private key. You can create the required items in your Google Cloud project. Follow the steps below to [add a custom role](https://cloud.google.com/iam/docs/creating-custom-roles), [create a service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts), and [generate a private key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys).
 
-To create a custom role:
+To create a custom role, do the following:
 
 1. Log on to the [Google Cloud Platform console](https://console.cloud.google.com/home/dashboard) and go to your project settings.
 1. Select **Roles** in the left navigation pane, and then select **+ Create Role**.
 1. Enter the required details for the role, and then select **+ Add permissions**.
-1. Select the check box next to the following permission properties (enter a property name to locate it in the list):
+1. Select the checkbox next to the following permission properties (enter a property name to locate it in the list):
 
     * `apigee.deployments.list`
     * `apigee.environments.list`
@@ -52,7 +46,7 @@ To create a custom role:
 
 <img alt="Adding a custom role" src="https://assets.postman.com/postman-docs/apigee-custom-role-v9-13.jpg" width="564px"/>
 
-To create a service account:
+To create a service account, do the following:
 
 1. Select **Service Accounts** in the left navigation pane.
 1. Select **+ Create Service Account**.
@@ -65,7 +59,7 @@ To create a service account:
 
 <img alt="Creating a service account" src="https://assets.postman.com/postman-docs/apigee-service-account-v9-13.jpg" width="564px"/>
 
-To generate a private key:
+To generate a private key, do the following:
 
 1. Select the new service account to open it and select the **Keys** tab.
 1. Select **Add key** and select **Create new key**.
@@ -79,7 +73,7 @@ Your browser will automatically download a JSON file that has values for `client
 
 To connect to Apigee X in Postman, select **APIs** in the sidebar and select an API. Select **Deployments**, and then select **Apigee X**.
 
-First, authenticate with Apigee X:
+To authenticate with Apigee X, do the following:
 
 1. Enter the **Service Account Email** and **Private Key**. You can find the values in the JSON file you downloaded.
 
@@ -89,7 +83,7 @@ First, authenticate with Apigee X:
 
 <img alt="Apigee X authentication" src="https://assets.postman.com/postman-docs/apigee-authenticate-v9-13.jpg" width="575px"/>
 
-Next, set up the connection to Apigee X:
+To set up the connection to Apigee X, do the following:
 
 1. Select the **Organization** that has the proxy you want to connect to Postman.
 1. Enter a **Nickname** for this integration.

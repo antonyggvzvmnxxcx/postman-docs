@@ -1,29 +1,19 @@
 ---
-title: 'Generating server code'
+title: "Generate server-side code from your OpenAPI 3.0 definition"
 updated: 2022-09-15
 contextual_links:
   - type: section
-    name: "Prerequisites"
-  - type: link
-    name: "Grouping requests in Collections"
-    url: "/docs/sending-requests/intro-to-collections/"
-  - type: section
-    name: "Additional Resources"
+    name: "Additional resources"
   - type: subtitle
     name: "Videos"
   - type: link
     name: "Postman | Generate Server-Side Code"
     url: "https://youtu.be/n77FNEcTNEQ"
   - type: subtitle
-    name: "Blog Posts"
+    name: "Blog posts"
   - type: link
     name: "The Reimagined API-First Workflow, Part 1: for Developers"
     url: "https://blog.postman.com/the-reimagined-api-first-workflow-for-developers/"
-  - type: section
-    name: "Next Steps"
-  - type: link
-    name: "Managing APIs"
-    url: "/docs/designing-and-developing-your-api/managing-apis/"
 ---
 
 With server code generation, you can generate server-side boilerplate code from your OpenAPI 3 specification. This enables you to run a server based on your API specification and use it as a starting point for developing your business logic.
@@ -43,7 +33,7 @@ Supported languages and frameworks include:
 
 ## Generating server code
 
-To generate server-side boilerplate from your OpenAPI 3.0 definition:
+To generate server-side boilerplate from your OpenAPI 3.0 definition, do the following:
 
 1. Select **APIs** in the sidebar and select an API with an OpenAPI 3.0 definition.
 1. In the right sidebar, select the code generation icon <img alt="Code snippet icon" src="https://assets.postman.com/postman-docs/icon-code-snippet.jpg#icon" width="16px">.

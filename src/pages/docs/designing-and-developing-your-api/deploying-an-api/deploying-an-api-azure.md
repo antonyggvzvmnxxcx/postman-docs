@@ -1,15 +1,21 @@
 ---
-title: 'Deploying to Azure API Management'
-page_id: 'deploying_an_api_azure'
+title: "Manage API deployments to Azure API Management in Postman"
 updated: 2022-09-15
 search_keyword: "deploy, azure, api management"
 warning: false
 contextual_links:
   - type: section
-    name: "Prerequisites"
+    name: "Additional resources"
+  - type: subtitle
+    name: "Videos"
   - type: link
-    name: "Developing an API"
-    url: "/docs/designing-and-developing-your-api/developing-an-api/"
+    name: "Deploy to Azure API Gateway From Postman"
+    url: "https://youtu.be/w2kSAt8CBWE"
+  - type: subtitle
+    name: "Blog posts"
+  - type: link
+    name: "Announcing the Postman Microsoft Azure Integration Partnership"
+    url: "https://blog.postman.com/announcing-postman-microsoft-azure-integration-partnership/"
 
 ---
 
@@ -24,14 +30,12 @@ contextual_links:
 
 ## Connecting to Azure API Management
 
-To connect to Azure API Management in Postman:
-
 1. Select **APIs** in the sidebar and select an API.
 1. Select **Deployments**, and then select **Microsoft Azure**.
 1. You'll be prompted to authorize Postman to access your Microsoft Azure account. After you grant access, you can close the browser tab and return to Postman.
 1. Enter information about the Azure API Management service you want to connect to your API:
 
-    * **Subscription** - The [subscription](https://docs.microsoft.com/en-us/azure/api-management/api-management-subscriptions) where the service was created.
+    * **Subscription** - The [subscription](https://learn.microsoft.com/en-us/microsoft-365/enterprise/subscriptions-licenses-accounts-and-tenants-for-microsoft-cloud-offerings?view=o365-worldwide#subscriptions) where the service was created.
     * **Resource Group** - The [resource group](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal) that contains the service.
     * **Service** - The Azure API Management [service instance](https://docs.microsoft.com/en-us/azure/api-management/api-management-key-concepts) used for deploying your API.
     * **API Version** - The Azure API [version](https://docs.microsoft.com/en-us/azure/api-management/api-management-versions) that corresponds to your API in Postman.
@@ -100,7 +104,7 @@ Exporting an OpenAPI definition makes it available in the connected Azure API Ma
 1. Select the service you want to export to, and then select **Export API**.
 1. Select the source of the definition you want to export. You can select the current definition or any [published version](/docs/designing-and-developing-your-api/versioning-an-api/api-versions/) of the definition.
 1. Enter a brief description for the export.
-1. (Optional) If you want to export the definition to an existing revision, select the check box. Select the **Revision ID** of the revision you want to update.
+1. (Optional) If you want to export the definition to an existing revision, select the checkbox. Select the **Revision ID** of the revision you want to update.
 
     > If you don't select the checkbox, Postman exports the API to a new revision.
 

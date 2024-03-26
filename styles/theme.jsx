@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import '../styles/config/typography.css';
 
 export const theme = {
   colors: {
@@ -85,6 +84,10 @@ export const theme = {
     content_color_tertiary: `${(props) => props.theme.colors.grey_50}`
   },
 
+  forms: {
+    border: '#969696',
+    text: '#6B6B6B'
+  },
   
   shadows: {
     // mostly used on Cards

@@ -1,7 +1,9 @@
-import { useStaticQuery, graphql } from 'gatsby';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
+import footerDataLocal from '../../../build/footerDev.json';
+import footerData from '../../../bff-data/footer.json';
+
 
 const FooterWrapper = styled.footer`
   border-top: 1px solid ${(props) => props.theme.colors.grey_30};
@@ -9,13 +11,14 @@ const FooterWrapper = styled.footer`
   font-size: 14px;
   color: ${(props) => props.theme.colors.grey_50};
 .copyright {
-  font-size: 12px
+  font-size: 12px;
 }
 .column {
   margin-left: 0px;
 }
 .footer-col-title {
   font-size: 16px !important;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif;
   font-weight: 600;
   line-height: 1.4;
   margin-bottom: 8px; 
@@ -60,22 +63,12 @@ const FooterImgWrapper = styled.div`
     }
   }
 `
-const SocialSVGWrapper = styled.div`
-  display: inline-block;
-  margin-right: 8px;
-  width: 16px;
-  height: 16px;
-  & svg {
-    max-height: 100%;
-    width: auto;
-  }
-`
 
 const triggerGA = (category, label) => (
   category
   && label
-  && window.pm
-  && window.pm.ga('send', 'event', category, 'Click', label)
+  && window.pmt
+  && window.pmt('ga', ['send', 'event', category, 'Click', label])
 );
 
 // Helper function for rel attribute in link or button
@@ -99,38 +92,78 @@ function targetStringGenerator(target) {
   return null;
 }
 
-class FooterComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    const { data } = this.props;
+const Footer = () => {
+  const [data, setData] = useState(footerDataLocal)
+  const footerKeys = ['alt', 'copy', 'copyright', 'items', 'src', 'type'];
 
-    this.state = {
-      data: JSON.parse(data),
-    };
-  }
+  useEffect(() => {
+    if (footerKeys.every(key => Object.keys(footerDataLocal).includes(key))) {
+      setData(footerDataLocal)
+    } else {
+      setData(footerDataLocal)
+    }
+  }, [])
 
-  render() {
-    const { data } = this.state;
-    const columns = data.items.splice(0, 4);
-
-    return (
-      <FooterWrapper>
-        <section id="Footer" className="pb-5 section">
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-8 offset-sm-2 col-md-12 offset-md-0">
-                <div className="row">
-                  {/* First column */}
-                  <FooterImgWrapper className="col-6 col-md-3 col-lg-2 order-12 order-md-0 pad-md-right align-self-center">
-                    <img className="footer-img" src='https://voyager.postman.com/illustration/postman-footer-rocket-launch.svg' alt="Postman" />
-                    <span className="col-12 d-none d-md-block copyright">
-                      {data.copyright}
-                    </span>
-                  </FooterImgWrapper>
-                  {/* Second column */}
-                  <div className="col-6 col-md-3 offset-md-1 col-lg-3 offset-lg-2 order-1 order-md-2 mb-5">
-                    {columns.slice(0, 1).map((item) => (
-                      <nav aria-labelledby={item.arialabelledby} key={uuidv4()}>
+  const columns = data.items.slice(0, 5);
+  return (
+    <FooterWrapper>
+      <section id="Footer" className="section">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-8 offset-sm-2 col-md-12 offset-md-0">
+              <div className="row">
+                {/* Copyright */}
+                <FooterImgWrapper className="col-8 offset-2 col-md-3 offset-md-0 col-lg-2 order-12 order-md-0 pad-md-right align-self-center">
+                  <img className="footer-img mb-5" src='https://voyager.postman.com/illustration/postman-footer-rocket-launch.svg' alt="Postman" />
+                  <span className="col-12 d-none d-md-block copyright">
+                    {data.copyright}
+                  </span>
+                </FooterImgWrapper>
+                {/* Product */}
+                <div className="col-6 col-md-2 offset-md-1 col-lg-2 offset-lg-2 order-1 order-md-2 mb-5">
+                  {columns.slice(0, 1).map((item) => (
+                    <nav aria-labelledby={item.arialabelledby} key={uuidv4()}>
+                      <h2 className="footer-col-title" id={item.arialabelledby}>
+                        {item.title}
+                      </h2>
+                      <ColumnWrapper className="column">
+                        {(item.items
+                          && item.items.map((link) => (
+                            <li className="column-row" key={uuidv4()}>
+                              <a
+                                className="column-link"
+                                id={link.id}
+                                href={link.url}
+                                rel={relStringGenerator(link.target)}
+                                target={targetStringGenerator(link.target)}
+                                onClick={() => {
+                                  triggerGA(link.category, link.label);
+                                }}
+                              >
+                                {link.span ? (
+                                  <>
+                                    {link.title}
+                                    <span>{link.span}</span>
+                                  </>
+                                ) : (
+                                  <>{link.title}</>
+                                )}
+                              </a>
+                            </li>
+                          )))
+                          || ''}
+                      </ColumnWrapper>
+                    </nav>
+                  ))}
+                </div>
+                <div className="col-6 col-md-2 order-2 order-md-3">
+                  {/* Company - stacked top */}
+                  {columns.slice(1, 2).map((item) => (
+                    <div key={uuidv4()}>
+                      <nav
+                        aria-labelledby={item.arialabelledby}
+                        className="mb-5"
+                      >
                         <h2 className="footer-col-title" id={item.arialabelledby}>
                           {item.title}
                         </h2>
@@ -162,174 +195,153 @@ class FooterComponent extends React.Component {
                             || ''}
                         </ColumnWrapper>
                       </nav>
-                    ))}
-                  </div>
-                  <div className="col-6 col-md-3 order-2 order-md-3">
-                    {/* Third column - stacked - top */}
-                    {columns.slice(1, 2).map((item) => (
-                      <div key={uuidv4()}>
-                        <nav
-                          aria-labelledby={item.arialabelledby}
-                          className="mb-5"
-                        >
-                          <h2 className="footer-col-title" id={item.arialabelledby}>
-                            {item.title}
-                          </h2>
-                          <ColumnWrapper className="column">
-                            {(item.items
-                              && item.items.map((link) => (
-                                <li className="column-row" key={uuidv4()}>
-                                  <a
-                                    className="column-link"
-                                    id={link.id}
-                                    href={link.url}
-                                    rel={relStringGenerator(link.target)}
-                                    target={targetStringGenerator(link.target)}
-                                    onClick={() => {
-                                      triggerGA(link.category, link.label);
-                                    }}
-                                  >
-                                    {link.span ? (
-                                      <>
-                                        {link.title}
-                                        <span>{link.span}</span>
-                                      </>
-                                    ) : (
-                                      <>{link.title}</>
-                                    )}
-                                  </a>
-                                </li>
-                              )))
-                              || ''}
-                          </ColumnWrapper>
-                        </nav>
-                      </div>
-                    ))}
-                    {/* Third column - stacked - bottom */}
-                    {columns.slice(2, 3).map((item) => (
-                      <div key={uuidv4()}>
-                        <nav
-                          aria-labelledby={item.arialabelledby}
-                          className="mb-5"
-                        >
-                          <h2 className="footer-col-title" id={item.arialabelledby}>
-                            {item.title}
-                          </h2>
-                          <ColumnWrapper className="column">
-                            {(item.items
-                              && item.items.map((link) => (
-                                <li className="column-row" key={uuidv4()}>
-                                  <a
-                                    className="column-link"
-                                    id={link.id}
-                                    href={link.url}
-                                    rel={relStringGenerator(link.target)}
-                                    target={targetStringGenerator(link.target)}
-                                    onClick={() => {
-                                      triggerGA(link.category, link.label);
-                                    }}
-                                  >
-                                    {link.span ? (
-                                      <>
-                                        {link.title}
-                                        <span>{link.span}</span>
-                                      </>
-                                    ) : (
-                                      <>{link.title}</>
-                                    )}
-                                  </a>
-                                </li>
-                              )))
-                              || ''}
-                          </ColumnWrapper>
-                        </nav>
-                      </div>
-                    ))}
-                  </div>
-                  {/* Fourth column */}
-                  <div className="col-6 col-md-2 col-lg-2 order-3 order-md-4">
-                    <div className="row">
-                      {columns.slice(3, 4).map((item) => (
-                        <div className="col-sm-12" key={uuidv4()}>
-                          <nav
-                            aria-labelledby={item.arialabelledby}
-                            className="mb-5"
-                          >
-                            <h2 className="footer-col-title" id={item.arialabelledby}>
-                              {item.title}
-                            </h2>
-                            <ColumnWrapper className="column">
-                              {(item.items
-                                && item.items.map((link) => (
-                                  <li className="column-row" key={uuidv4()}>
-                                    <a
-                                      className="column-link"
-                                      id={link.id}
-                                      href={link.url}
-                                      rel={relStringGenerator(link.target)}
-                                      target={targetStringGenerator(
-                                        link.target,
-                                      )}
-                                      onClick={() => {
-                                        triggerGA(link.category, link.label);
-                                      }}
-                                    >
-                                      <div direction="row" wrap="nowrap">
-                                        <SocialSVGWrapper
-                                          className="d-inline-block align-self-center social-svg"
-                                          // eslint-disable-next-line react/no-danger
-                                          dangerouslySetInnerHTML={{
-                                            __html: link.svg,
-                                          }}
-                                        />
-                                        {link.span ? (
-                                          <>
-                                            {link.title}
-                                            <span>{link.span}</span>
-                                          </>
-                                        ) : (
-                                          <>
-                                            <div className="d-inline-block align-self-center">
-                                              {link.title}
-                                            </div>
-                                          </>
-                                        )}
-                                      </div>
-                                    </a>
-                                  </li>
-                                )))
-                                || ''}
-                            </ColumnWrapper>
-                          </nav>
-                        </div>
-                      ))}
                     </div>
+                  ))}
+                  {/* Company stacked bottom */}
+                  {columns.slice(2, 3).map((item) => (
+                    <div key={uuidv4()}>
+                      <nav
+                        aria-labelledby={item.arialabelledby}
+                        className="mb-2"
+                      >
+                        <h2 className="footer-col-title" id={item.arialabelledby}>
+                          {item.title}
+                        </h2>
+                        <ColumnWrapper className="column">
+                          {(item.items
+                            && item.items.map((link) => (
+                              <li className="column-row" key={uuidv4()}>
+                                <a
+                                  className="column-link"
+                                  id={link.id}
+                                  href={link.url}
+                                  rel={relStringGenerator(link.target)}
+                                  target={targetStringGenerator(link.target)}
+                                  onClick={() => {
+                                    triggerGA(link.category, link.label);
+                                  }}
+                                >
+                                  {link.span ? (
+                                    <>
+                                      {link.title}
+                                      <span>{link.span}</span>
+                                    </>
+                                  ) : (
+                                    <>{link.title}</>
+                                  )}
+                                </a>
+                              </li>
+                            )))
+                            || ''}
+                        </ColumnWrapper>
+                      </nav>
+                    </div>
+                  ))}
+                </div>
+                {/* API Categories */}
+                <div className="col-6 col-md-2 order-3 order-md-4">
+                  {columns.slice(3, 4).map((item) => (
+                    <nav aria-labelledby={item.arialabelledby} key={uuidv4()}>
+                      <h2 className="footer-col-title" id={item.arialabelledby}>
+                        {item.title}
+                      </h2>
+                      <ColumnWrapper className="column">
+                        {(item.items
+                          && item.items.map((link) => (
+                            <li className="column-row" key={uuidv4()}>
+                              <a
+                                className="column-link"
+                                id={link.id}
+                                href={link.url}
+                                rel={relStringGenerator(link.target)}
+                                target={targetStringGenerator(link.target)}
+                                onClick={() => {
+                                  triggerGA(link.category, link.label);
+                                }}
+                              >
+                                {link.span ? (
+                                  <>
+                                    {link.title}
+                                    <span>{link.span}</span>
+                                  </>
+                                ) : (
+                                  <>{link.title}</>
+                                )}
+                              </a>
+                            </li>
+                          )))
+                          || ''}
+                      </ColumnWrapper>
+                    </nav>
+                  ))}
+
+                </div>
+                {/* Social media icons */}
+                <div className="col-6 col-md-2 order-4 order-md-5">
+                  <div className="row">
+                    {columns.slice(4, 5).map((item) => (
+                      <div className="col-sm-12" key={uuidv4()}>
+                        <nav
+                          aria-labelledby={item.arialabelledby}
+                          className="mb-5"
+                        >
+                          <h2 className="footer-col-title" id={item.arialabelledby}>
+                            {item.title}
+                          </h2>
+                          <ColumnWrapper className="column">
+                            {(item.items
+                              && item.items.map((link) => (
+                                <li className="column-row" key={uuidv4()}>
+                                  <a
+                                    className="column-link"
+                                    id={link.id}
+                                    href={link.url}
+                                    rel={relStringGenerator(link.target)}
+                                    target={targetStringGenerator(
+                                      link.target,
+                                    )}
+                                    onClick={() => {
+                                      triggerGA(link.category, link.label);
+                                    }}
+                                  >
+                                    <div style={{ display: "inline-block", alignItems: "center" }}>
+                                      <img 
+                                        src={link.icon} 
+                                        style={{height: "16px", width: "16px", marginRight: "1rem", marginBottom: "0" }}
+                                        fetchpriority="low"
+                                        loading="lazy" 
+                                        />
+                                       {link.span ? (
+                                          <span>{link.title}</span>
+                                      ) : (
+                                        <>
+                                          <div className="d-inline-block align-self-center">
+                                            {link.title}
+                                          </div>
+                                        </>
+                                      )}
+                                    </div>
+                                  </a>
+                                </li>
+                              )))
+                              || ''}
+                          </ColumnWrapper>
+                        </nav>
+                      </div>
+                    ))}
                   </div>
-                  <div className="col-12 d-block d-md-none text-center order-last">
-                    <span className="col-12 copyright">{data.copyright}</span>
-                  </div>
+                </div>
+                <div className="col-12 d-block d-md-none text-center order-last">
+                  <span className="col-12 copyright">{data.copyright}</span>
                 </div>
               </div>
             </div>
-            {/*  eslint-enable */}
           </div>
-        </section>
-      </FooterWrapper>
-    );
-  }
-}
-
-const Footer = () => {
-  const data = useStaticQuery(graphql`
-  query {
-    footerLinks {
-      value
-    }
-  }`);
-  return (
-    <FooterComponent data={data.footerLinks.value} />
+          {/*  eslint-enable */}
+        </div>
+      </section>
+    </FooterWrapper>
   );
 };
-
 
 export default Footer;
